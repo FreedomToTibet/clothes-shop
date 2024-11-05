@@ -23,13 +23,13 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCiKnNnSw1xNeI5Ru7bRMLjrUoowboSkYw",
-  authDomain: "crown-clothing-store-9a88d.firebaseapp.com",
-  projectId: "crown-clothing-store-9a88d",
-  storageBucket: "crown-clothing-store-9a88d.appspot.com",
-  messagingSenderId: "295769005270",
-  appId: "1:295769005270:web:bbd67c1b0df646082e3d77",
-  measurementId: "G-JR3K5K9ELJ"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
