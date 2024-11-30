@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 import FormInput from '../../ui/form-input/formInput';
 import Button from '../../ui/button/button';
@@ -24,17 +24,16 @@ export const SignInForm = () => {
 		event.preventDefault();
 	
 		try {
-			const response = await signInAuthUserWithEmailAndPassword(email, password);
-			console.log(response)
+			const { user } = await signInAuthUserWithEmailAndPassword(email, password);
 			setFormFields(defaultFormFields);
-		} catch (error) {
+		} 
+		catch (error) {
 			console.error(error);
 		}
 	};
 
 	const signInWithGoogle = async () => {
-    const {user} = await signInWithGooglePopup();
-		await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 	
   const handleChange = async (event) => {

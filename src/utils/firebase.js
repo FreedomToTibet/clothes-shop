@@ -9,7 +9,8 @@ import {
 	signInWithRedirect,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
-	// signOut,
+	signOut,
+	onAuthStateChanged,
 } from 'firebase/auth';
 
 import {
@@ -93,4 +94,16 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 	} catch (error) {
 		console.error('Error signing in user', error.message);
 	}
+};
+
+export const signOutAuthUser = async () => {
+	try {
+		return await signOut(auth);
+	} catch (error) {
+		console.error('Error signing out user', error.message);
+	}
+};
+
+export const onAuthStateChangedListener = (callback) => {
+	return onAuthStateChanged(auth, callback);
 };
