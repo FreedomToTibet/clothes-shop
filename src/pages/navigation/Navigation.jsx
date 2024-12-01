@@ -4,7 +4,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { UserContext } from '../../context/user';
 import { signOutAuthUser } from '../../utils/firebase';
 
-import crownLogo from '../../assets/crown.svg';
+import crownLogo from '/crown.svg';
 
 import './navigation.scss';
 
