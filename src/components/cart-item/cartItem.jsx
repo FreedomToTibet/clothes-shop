@@ -1,4 +1,5 @@
 import './cartItem.scss';
+import PropTypes from 'prop-types';
 
 const CartItem = ({ cartItem }) => {
   const { imageUrl, price, title, quantity } = cartItem;
@@ -14,6 +15,14 @@ const CartItem = ({ cartItem }) => {
       </div>
     </div>
   );
+};
+CartItem.propTypes = {
+  cartItem: PropTypes.shape({
+    imageUrl: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default CartItem;
