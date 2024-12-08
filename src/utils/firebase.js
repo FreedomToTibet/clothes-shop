@@ -18,9 +18,11 @@ import {
 	doc,
 	getDoc,
 	setDoc,
+	collection,
+	writeBatch,
+	query,
+	getDocs,
 } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -50,6 +52,33 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 export const firestoreDB = getFirestore(firebaseApp); // firestoreDB is the database
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+	const collectionRef = collection(firestoreDB, collectionKey);
+	const batch = writeBatch(firestoreDB);
+
+	objectsToAdd.forEach((obj) => {
+		const newDocRef = doc(collectionRef, obj.title.toLowerCase());
+		batch.set(newDocRef, obj);
+	});
+
+	await batch.commit();
+	console.log('Collection added');
+	return;
+};
+
+export const getCollectionAndDocuments = async (collectionKey) => {
+	const collectionRef = collection(firestoreDB, collectionKey);
+	const collectionSnapshot = await getDocs(query(collectionRef));
+
+	const collectionMap = collectionSnapshot.docs.reduce((accumulator, doc) => {
+		const { title, items } = doc.data();
+		accumulator[title.toLowerCase()] = items;
+		return accumulator;
+	}, {});
+
+	return collectionMap;
+};
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation={}) => {
 	if (!userAuth) return;
