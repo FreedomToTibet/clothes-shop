@@ -22,9 +22,10 @@ const ProductCard = ({ product }) => {
     </div>
   );
 };
+
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     price: PropTypes.number.isRequired,
     imageUrl: PropTypes.string.isRequired,
   }).isRequired,

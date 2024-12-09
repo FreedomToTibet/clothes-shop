@@ -13,7 +13,6 @@ export const ProductsProvider = ({ children }) => {
 		const fetchProducts = async () => {
 			const productsCollection = await getCollectionAndDocuments('categories');
 			setProducts(productsCollection);
-			console.log("gets products from the firebase", productsCollection);
 		};
 
 		fetchProducts();
