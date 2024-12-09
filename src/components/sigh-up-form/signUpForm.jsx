@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import FormInput from '../../ui/form-input/formInput';
-import Button from '../../ui/button/Button';
+import Button, { BUTTON_TYPE_CLASSES } from '../../ui/button/Button';
 
 import { 
 	createAuthUserWithEmailAndPassword, 
