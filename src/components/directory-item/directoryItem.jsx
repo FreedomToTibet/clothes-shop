@@ -1,13 +1,18 @@
+import { useNavigate } from 'react-router-dom';
+
 import {
   BackgroundImage,
   Body,
   DirectoryItemContainer,
 } from './directoryItem-styled';
 
-const DirectoryItem = ({ category: {imageUrl, title} }) => {
+import PropTypes from 'prop-types';
+
+const DirectoryItem = ({ category: {imageUrl, title, route } }) => {
+	const navigate = useNavigate();
   
   return (
-    <DirectoryItemContainer>
+    <DirectoryItemContainer onClick={() => navigate(route)}>
       <BackgroundImage
         className='background-image'
         style={{
@@ -20,6 +25,14 @@ const DirectoryItem = ({ category: {imageUrl, title} }) => {
       </Body>
     </DirectoryItemContainer>
   );
+};
+
+DirectoryItem.propTypes = {
+  category: PropTypes.shape({
+    imageUrl: PropTypes.string,
+    title: PropTypes.string,
+    route: PropTypes.string,
+  }).isRequired,
 };
 
 export default DirectoryItem;
