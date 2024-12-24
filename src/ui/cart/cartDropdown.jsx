@@ -9,8 +9,13 @@ import Button from '../../ui/button/Button';
 import {CartDropdownContainer, CartItems} from './cartDropdown-styled.jsx';
 
 const CartDropdown = () => {
-  const {cartItems} = useContext(CartContext);
+  const {setIsCartOpen, cartItems} = useContext(CartContext);
   const navigate = useNavigate();
+
+	const handleCheckoutClick = () => {
+		setIsCartOpen(false);
+		navigate('/checkout');
+	};
 
   if (cartItems.length === 0) {
     return null;
@@ -23,7 +28,7 @@ const CartDropdown = () => {
           <CartItem key={cartItem.id} cartItem={cartItem} />
         ))}
       </CartItems>
-      <Button onClick={() => navigate('/checkout')}>GO TO CHECKOUT</Button>
+      <Button onClick={handleCheckoutClick}>GO TO CHECKOUT</Button>
     </CartDropdownContainer>
   );
 };

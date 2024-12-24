@@ -1,4 +1,4 @@
-import { createContext, useState, useReducer } from 'react';
+import { createContext, useReducer } from 'react';
 import { createAction } from '../reducer/reducer';
 import PropTypes from 'prop-types';
 
