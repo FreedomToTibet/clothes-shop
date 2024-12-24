@@ -1,5 +1,5 @@
 import { Fragment, useContext } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../../context/user';
 import { CartContext } from '../../context/cart';
@@ -20,6 +20,18 @@ import {
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
   const { isCartOpen } = useContext(CartContext);
+	const navigate = useNavigate();
+
+	const handleSignOut = async () => {
+		try {
+			const success = await signOutAuthUser();
+			if (success) {
+				navigate('/');
+			}
+		} catch (error) {
+			console.error('Error during sign out:', error);
+		}
+	};
   
 	return (
     <Fragment>
@@ -34,7 +46,7 @@ const Navigation = () => {
           </NavLink>
 
           {currentUser ? (
-            <span className="nav-link" onClick={signOutAuthUser}>SIGN OUT</span>
+            <span style={{cursor: 'pointer'}} className="nav-link" onClick={handleSignOut}>SIGN OUT</span>
           ) : (
             <NavLink to="/auth">
               SIGN IN

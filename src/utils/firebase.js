@@ -1,6 +1,4 @@
-// Import the functions you need from the SDKs you need
 import {initializeApp} from 'firebase/app';
-// import { getAnalytics } from "firebase/analytics";
 
 import {
   getAuth,
@@ -37,7 +35,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-// const analyticsApp = getAnalytics(firebaseApp);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -106,12 +103,18 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
-	if(!email || !password) return;
+	if(!email || !password) return null;
 
 	try {
-		return await createUserWithEmailAndPassword(auth, email, password);
+		const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    return userCredential;
+		// return await createUserWithEmailAndPassword(auth, email, password);
 	} catch (error) {
-		console.error('Error creating user', error.message);
+		if (error.code === 'auth/email-already-in-use') {
+      throw new Error('Email already in use');
+    } else {
+      throw error;
+    }
 	}
 };
 
@@ -127,9 +130,11 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutAuthUser = async () => {
 	try {
-		return await signOut(auth);
+		await signOut(auth);
+		return true;
 	} catch (error) {
 		console.error('Error signing out user', error.message);
+		return false;
 	}
 };
 
