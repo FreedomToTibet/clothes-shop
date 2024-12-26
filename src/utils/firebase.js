@@ -94,7 +94,8 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
 				createdAt,
 				...additionalInformation,
 			});
-		} catch (error) {
+		} 
+		catch (error) {
 			console.error('Error creating user', error.message);
 		}
 	}
@@ -108,8 +109,8 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 	try {
 		const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential;
-		// return await createUserWithEmailAndPassword(auth, email, password);
-	} catch (error) {
+	} 
+	catch (error) {
 		if (error.code === 'auth/email-already-in-use') {
       throw new Error('Email already in use');
     } else {
@@ -123,7 +124,8 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 	try {
 		return await signInWithEmailAndPassword(auth, email, password);
-	} catch (error) {
+	} 
+	catch (error) {
 		console.error('Error signing in user', error.message);
 	}
 };
@@ -132,7 +134,8 @@ export const signOutAuthUser = async () => {
 	try {
 		await signOut(auth);
 		return true;
-	} catch (error) {
+	} 
+	catch (error) {
 		console.error('Error signing out user', error.message);
 		return false;
 	}
