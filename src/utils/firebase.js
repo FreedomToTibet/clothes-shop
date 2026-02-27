@@ -22,6 +22,24 @@ import {
 	getDocs,
 } from 'firebase/firestore';
 
+// Validate required environment variables
+const requiredEnvVars = [
+  'VITE_API_KEY',
+  'VITE_AUTH_DOMAIN',
+  'VITE_PROJECT_ID',
+];
+
+const missingEnvVars = requiredEnvVars.filter(
+  (varName) => !import.meta.env[varName]
+);
+
+if (missingEnvVars.length > 0) {
+  throw new Error(
+    `Missing required Firebase environment variables: ${missingEnvVars.join(', ')}. ` +
+    `Please ensure these variables are defined in your .env file.`
+  );
+}
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
