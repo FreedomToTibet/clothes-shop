@@ -1,8 +1,8 @@
-import { Fragment, useContext } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { UserContext } from '../../context/user';
-import { CartContext } from '../../context/cart';
+import { useCurrentUser } from '../../context/user';
+import { useIsCartOpen } from '../../context/cart';
 import { signOutAuthUser } from '../../utils/firebase';
 
 import CartIcon from '../../ui/cart/carIcon';
@@ -18,8 +18,8 @@ import {
 } from './navigation-styled';
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  const currentUser = useCurrentUser();
+  const isCartOpen = useIsCartOpen();
 	const navigate = useNavigate();
 
 	const handleSignOut = async () => {
@@ -56,7 +56,6 @@ const Navigation = () => {
         </NavLinks>
 				{ isCartOpen && <CartDropdown /> }
       </NavigationContainer>
-      <Outlet />
     </Fragment>
   );
 };
