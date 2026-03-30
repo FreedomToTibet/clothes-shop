@@ -12,7 +12,17 @@ export const ProductsProvider = ({ children }) => {
 	useEffect(() => {
 		const fetchProducts = async () => {
 			const productsCollection = await getCollectionAndDocuments('categories');
-			setProducts(productsCollection);
+			
+			// Transform products to ensure 'title' field exists
+			const transformedProducts = Object.keys(productsCollection).reduce((acc, key) => {
+				acc[key] = productsCollection[key].map(product => ({
+					...product,
+					title: product.title || product.name // Use title if exists, otherwise use name
+				}));
+				return acc;
+			}, {});
+			
+			setProducts(transformedProducts);
 		};
 
 		fetchProducts();
